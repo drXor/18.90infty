@@ -1,0 +1,3 @@
+[submodule "texor"]
+	path = texor
+	url = https://github.com/drXor/texor
