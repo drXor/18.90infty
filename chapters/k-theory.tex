@@ -1,14 +1,97 @@
 \makeatletter\@ifundefined{infty@macros@defined}{\input{header}\def\infty@lock{}\begin{document}}{}\makeatother
 
-\chapter{k-theory}{bcfe1b}{K-Theory}
+\chapter{k-theory}{bcfe1b}{$K$-Theory}
 
 \section{vec-bun-review}{7088ed}{Vector Bundles}
 
-Recall the definition of a vector bundle:
-\begin{defn}[Vector Bundles]{vec-buns}{d755ef}
-  A vector bundle is a fiber bundle 
-  \[ F \to E \rmap{p} B, \]
-  such that there is a continuously varying vector space structure on $F$. 
+Before we can begin to tackle $K$-Theory, we will recall some basic facts
+of vector bundles, though we will probably gloss over most of the details.
+Throughout, we fix some nice field such as $\R$ or $\C$ (though, in general,
+we assume to be working over $\C$ unless otherwise noted) and henceforth
+supress it from the notation.
+
+\begin{defn}{vec-buns}{d755ef}
+  A \emph{vector bundle} $\xi$ consists of the following data:
+  \begin{itemize}
+    \item A surjection of spaces $p: E \srj B$. We call $p$, $E$, and $B$ the
+          projection, total space, and base space, respectively.
+    \item For each $b\in B$, a finite-dimentisonal vector space structure 
+          on each fiber $p^{-1}\Par{b}$, which make each fiber into a 
+          topological vector space.
+  \end{itemize}  
+  Furthermore, the map $p$ is \emph{locally trivial}, that is, for each 
+  $b\in B$ there exists a neighborhood $U$ around it such that $p^{-1}\Par{U}$
+  is homeomorphic to $B \times V$ for some vector space $V$.
 \end{defn}
+
+Since the dimension of each fiber varies continuously along $B$, it is clear that when $B$
+is connected, all of the fibers have the same dimension. We call this number the \emph{rank}
+of the bundle. We may refer to a rank $1$ bundle as a \emph{line bundle}, and to a rank $n$
+bundle as an \emph{$n$-plane bundle}. 
+
+The trivialization requirement suggests a simple class of vector bundles: those which
+are \emph{globally trivial}:
+\begin{exmp}{trivial-vec-bun}{47b41a}
+  Given a space $X$ and a vector space $V$, we may form the \emph{trivial bundle}
+  \[ \pr[1]: X \times V \to X \]
+  whose projection being the product projection (hence the name!) and whose fiber is $V$. 
+\end{exmp}
+
+\begin{exmp}[The Tautological Bundle]{tautological-line-bundle}{6bb21c}
+  Let $\Rp[n]$ be real projective space, the space of lines through the origin of
+  $\R[n+1]$. Let $\tau = E \rmap{p} \Rp[n]$ be a line bundle where
+  \[ E = \mkset{ \Par{\ell, v} \in \Rp[n] \times \R[n+1] }{ v \in \ell }, \] 
+  where $p$ is given by the projection. This is called the \emph{tautological bundle} of
+  $\Rp[n]$. The same construction may be done with $\Cp[n]$, too.
+\end{exmp}
+
+\begin{exmp}[The Tangent Bundle]{tangent-bundle}{ebdea1}
+  Given a smooth manifold $M^n$, we may form its tangent bundle $TM$, made up of the union of
+  its tangent spaces $T_x M$ of vectors tangent to $x \in M$\footnote{A rigorous treatment of
+  the tangent bundle is outside the scope of this book. See \citeme for further reading.}
+  The rank of $TM$ is equal to the dimension of the manifold $M$.
+\end{exmp}
+
+As objects over $B$, vector bundles have the maps you'd expect:
+
+\begin{defn}{vec-bun-maps}{e65fec}
+  A map of bundles over $B$ $\ph: \xi \to \xi'$ consists of a ladder
+  \[\begin{tikzcd}
+    F \ar{d}{\ph_F} \ar{r}{} & E \ar{d}{\ph_E} \ar{r}{p} & B \\
+    F' \ar{r}{} & E' \ar[']{ur}{p'}
+  \end{tikzcd}\]
+  where the map of fibers $\ph_F$ is also a linear map. If such a map
+  is invertible, we say $\xi$ and $\xi'$ are isomorphic, and denote it
+  in the usual way.
+\end{defn}
+
+Given another space $B'$, we can and a map from it, we can perform a
+\emph{change of base}:
+\begin{defn}{vec-bun-change-of-base}{21049c}
+  Given a vector bundle $\xi = E \rmap{p} B$ and a map $f: B' \to B$, we may
+  form their pullback:
+  \[\begin{tikzcd}
+    E \times[B] B' \ar{r}{} \ar{d}{} & \ar{d}{p} E \\
+    B' \ar{r}{f} & B
+  \end{tikzcd}\]
+  The vector bundle given by the vertical arrow $E \times[B] B' \to B'$ is denoted
+  by $f^*\xi$ and is called the \emph{pullback along $f$}.
+\end{defn}
+
+The following are easily verified:
+\begin{prop}{simple-props-of-vec-bun-change-of-base}{3814b2}
+  \hfill
+  \begin{itemize}
+    \item If $B' \inj B$ is an inclusion, then $f^*\xi$ is isomorphic
+          to the bundle given by restricting $p$ to to $B'$.
+    \item For a sequence of bases $B'' \rmap{g} B' \rmap{f} B'$, there is
+          a natural isomorphism
+          \[ g^* f^* \xi \isom \Par{fg}^* \xi. \] 
+  \end{itemize}
+\end{prop}
+\begin{proof}
+  Exercise. % TODO: link to exercise at the end of the section.
+\end{proof}
+
 
 \makeatletter\@ifundefined{infty@lock}{}{\end{document}}\makeatother
