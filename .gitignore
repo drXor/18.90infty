@@ -4,5 +4,7 @@
 *.pdf
 *.out
 
-# vim files
+# editor files
+*~
 *.swp
+*.texpadtemp

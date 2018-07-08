@@ -1,3 +1,7 @@
-\makeatletter\@ifundefined{infty@macros@defined}{\input{header}}{}\makeatother
+\makeatletter\@ifundefined{infty@macros@defined}{\input{header}\def\infty@lock{}\begin{document}}{}\makeatother
+
+\chapter{untitled}{??????}{Untitled}
 
 % your content here!
+
+\makeatletter\@ifundefined{infty@lock}{}{\end{document}}\makeatother

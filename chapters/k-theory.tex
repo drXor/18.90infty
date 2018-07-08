@@ -1,4 +1,4 @@
-\makeatletter\@ifundefined{infty@macros@defined}{\input{header}}{}\makeatother
+\makeatletter\@ifundefined{infty@macros@defined}{\input{header}\def\infty@lock{}\begin{document}}{}\makeatother
 
 \chapter{k-theory}{bcfe1b}{K-Theory}
 
@@ -11,3 +11,4 @@ Recall the definition of a vector bundle:
   such that there is a continuously varying vector space structure on $F$. 
 \end{defn}
 
+\makeatletter\@ifundefined{infty@lock}{}{\end{document}}\makeatother
