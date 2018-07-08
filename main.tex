@@ -1,4 +1,35 @@
-\documentclass{amsart}
+\documentclass{report}
+
+\usepackage[vakil]{texor/texor}
+\usepackage{lipsum}
+
+\input{macros.tex}
 
 \begin{document}
+
+\title{Test}
+
+%\maketitle
+
+\chapter{foo}{123124}{Foo}
+
+\section{bar}{612320}{Bar}
+\lipsum[1]
+
+\section{bar2}{213424}{Bar2}
+\lipsum[1]
+
+\begin{defn}[Baz]{test-1}{234212}
+  \lipsum[1]
+\end{defn}
+
+\lipsum[1]
+
+\begin{lem}[Baz2]{test-2}{567652}
+  \lipsum[1]
+\end{lem}
+
+Here's a ref to the first theorem: \tagref{defn:test-1}.
+Here's a ref to the first section: \tagref{sec:bar}.
+
 \end{document}
