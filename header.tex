@@ -55,7 +55,7 @@
 % reference a tagged item, e.g.
 % \tagref{thm:thom-isomorphism}
 \newcommand{\tagref}[1]{%
-  \@ifundefined{infty@tag@canary@#1}{%
+  \@ifundefined{infty@tag@num@#1}{%
     {\tt <ref:#1>}%
   }{%
     \hyperref[#1]{%
@@ -118,16 +118,16 @@
     \def\infty@thm@thistag{#1:##2}%
     
     % define the new tag 
-    \infty@tag@new{\infty@thm@thistag}{#1}{##3}%
+    \infty@tag@new{#1:##2}{#1}{##3}%
    
     % begin the theorem
     \begin{infty@thm@inner@#1}[##1]%
     
     % and label it
-    \label{\infty@thm@thistag}%
+    \label{#1:##2}%
 
     % finally, insert a margin note
-    \infty@tag@margin{\infty@thm@thistag}%
+    \infty@tag@margin{#1:##2}%
   }{%
     \end{infty@thm@inner@#1}%
     \undef\infty@thm@thistag%
@@ -149,6 +149,16 @@
 \theoremstyle{remark}
 \infty@thm@new{rem}{Remark}
 \infty@thm@new{notation}{Notation}
+
+%%% ADDITONAL SYMBOLS & OPERATORS %%%
+
+% category of vector bundles
+\TexorCategory[sub]{VecBun}
+
+% ordinary K-theory
+\TexorOneScriptOp*[math-ital]{\Kthy}{K}
+
+%%% FOOTER %%%
 
 \def\infty@macros@defined{}
 

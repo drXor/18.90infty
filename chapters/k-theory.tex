@@ -2,9 +2,20 @@
 
 \chapter{k-theory}{bcfe1b}{$K$-Theory}
 
-\section{vec-bun-review}{7088ed}{Vector Bundles}
+The story of modern algebaric topology really begins with \emph{$K$-theory},
+ostensibly a method for studying spaces using vector bundles instead of
+test spaces (like singular cohomology does). As we will discuver, $K$-theory
+is much more intimately related to cohomology than its construction might
+suggest. It will be the first of many \emph{extraordinary} cohomology theories
+we will study on our journey to the frontier of algebraic topology.
 
-Before we can begin to tackle $K$-Theory, we will recall some basic facts
+Even as a way to study spaces, $K$-theory is radically different from 
+\emph{ordinary} cohomology. Not only does it have values in negative degree,
+but it is also intimately contected to the topology of unitary matrices.
+
+\section{vec-bun-review}{7088ed}{A Review of Vector Bundles}
+
+Before we can begin to tackle $K$-theory, we will recall some basic facts
 of vector bundles, though we will probably gloss over most of the details.
 Throughout, we fix some nice field such as $\R$ or $\C$ (though, in general,
 we assume to be working over $\C$ unless otherwise noted) and henceforth
@@ -55,14 +66,15 @@ are \emph{globally trivial}:
 As objects over $B$, vector bundles have the maps you'd expect:
 
 \begin{defn}{vec-bun-maps}{e65fec}
-  A map of bundles over $B$ $\ph: \xi \to \xi'$ consists of a ladder
+  A map of bundles over $B$, $\ph: \xi \to \xi'$, consists of a ladder
   \[\begin{tikzcd}
     F \ar{d}{\ph_F} \ar{r}{} & E \ar{d}{\ph_E} \ar{r}{p} & B \\
     F' \ar{r}{} & E' \ar[']{ur}{p'}
   \end{tikzcd}\]
   where the map of fibers $\ph_F$ is also a linear map. If such a map
   is invertible, we say $\xi$ and $\xi'$ are isomorphic, and denote it
-  in the usual way.
+  in the usual way. The category consisting of vector bundles and these maps
+  will be denoted $\cVecBun[B]$. 
 \end{defn}
 
 Given another space $B'$, we can and a map from it, we can perform a
@@ -91,6 +103,135 @@ The following are easily verified:
 \end{prop}
 \begin{proof}
   Exercise. % TODO: link to exercise at the end of the section.
+\end{proof}
+
+The following theorem will give us access to a number of useful operations
+on vector bundles:
+\begin{thm}{vect-fnct-to-vec-bun-fnct}{38efab}
+  Let $\cVect$ be the category of finite dimensional vector spaces, and
+  let $T:\cVect \to \cVect$ be a functor which mapes the map
+  \[ \Hom[V, W] \to \Hom[T\Par{V}, T\Par{W}] \]
+  continuous (where $V$ and $W$ are regarded as products of the ground field).
+  Then, this functor may be lifted to a functor $\cVecBun[B] \to \cVecBun[B]$.
+
+  An analogous theorem also holds for $T$ with domain a product of copies of 
+  $\cVect$ and its opposite.
+\end{thm}
+\begin{proof}
+  Atiyah. \citeme
+\end{proof}
+
+From \tagref{thm:vect-fnct-to-vec-bun-fnct} we are entitled to to the direct sum 
+(also known as the \emph{Whitney sum}), 
+tensor product, hom-bundle, dual, and exterior power of
+any vector bundle(s), and the attendant natural isomorphisms. 
+%% TODO: something about the category of bundles over B? 
+
+\section{complex-k-theory}{f407c6}{Complex $K$-Theory}
+
+$K$-theory originates in algebraic geometetry, named after the German \emph{Klasse}, as in
+isomorphism ``class'', by Grothendieck \citeme{}. $K$-theory originated as a tool to study
+shaves on an algebaric variety; Michael Atiyah and Friedrich Hirzebruch transfered 
+the construction over to topology, resulting in \emph{complex topological $K$-theory}.
+The story of $K$-theory begins with two objects: the semiring of vector bundle classes, and
+the Grothendieck group. Let us begin by fixing $\C$ as our ground field and contemplating our
+favorite space $X$. 
+
+We'd like to study the vector bundles over $X$ algebraically, but they do not form a group.
+In fact, they don't even form a monoid; the Whitney sum is only associative and commutative up
+to isomorphism. However, if we consider \emph{isomorphism classes} of vector bundules, we
+obtain an algebraic structure we can get a grip on:
+\begin{defn}{monoid-vec-bun-iso}{190b0f} 
+  Let $\cVect[X] = \poi[0] \cVecBun[X]$ denote the set of isomorphism classes of 
+  $\cVecBun[X]$.\footnote{This is sometimes called the \emph{core} of a category.}
+  This set forms a semiring (i.e. an abelian monoid with a multiplication) under the
+  Whitney sum and the tensor product, respectively.
+\end{defn}
+
+However, the theory of semirings does not fit into our existing machinery of
+homological algebra: it is not an abelian group. The next step is to use a construction
+of Grothendieck to ``groupify'' it.
+\begin{defn}{grothendieck-group}{9d1b08}
+  Let $M$ be an abeilan monoid. The \emph{Grothendieck group} $K\Par{M}$ is defined by
+  the following universal property:
+  \[\begin{tikzcd}
+    & G \\
+    K\Par{M} \ar[dashed]{ur}{} \ar{r}{} & M \ar{u}{}
+  \end{tikzcd}\]
+  where $G$ is any group and $M \to G$ is any map of monoids. In other words, $K\Par{M}$
+  consists of formally adjoining the ``missing'' inverses to $M$: for each $m\in M$, 
+  there is a $-m\in K\Par{M}$. We may call these ``negative'' classes \emph{virtual classes}.  
+
+  Formally, $K\Par{M}$ is a quotient of $M \times M$ where $\Par{m, n}$ corresponds to $m - n$. 
+  Alternatively, we may define $K\Par{M}$ as a quotient of the free group ${\Z}M$, where we set
+  $m + n \sim m \oplus n$, here $+$ and $\oplus$ being the additions of ${\Z}M$ and $M$,
+  respectively.
+\end{defn}
+
+\begin{defn}{zeroth-k-group}{6fca6d}
+  The \emph{Grothendieck group of $X$}, or the \emph{zeroth $K$-theory of $X$} is the
+  Grothendieck group of its vector bundles, denoted 
+  \[ \Kthy[0][X] = K\Par{\cVect[X]}. \] 
+  Moreover, the tensor product provides $\Kthy[0][X]$ with a multiplication, where the
+  trivial line bundle $\ep = X \times \C$ is our one. This makes the Grothendieck group a ring.
+\end{defn}
+
+While we have succeeded in making a ring out of vector bundles, this is merely a 
+slice of $K$-theory\footnote{Spoilers: it's a really big slice.}! Let's work through some
+properties of $\Kthy[0][X]$. Throughout, $\Squ{\xi}$ is the (non-virtual) class represented
+by the bundle $\xi$.
+
+\begin{prop}{elements-of-K-0}{aa6eaf}
+  Every element of $\Kthy[0][X]$ is of the form $\Squ{\xi} - n$ for some bundle $\xi$ and
+  some natural number $n$.
+\end{prop}
+\begin{proof}
+  By construction, 
+  every element of $\Kthy[0][X]$ is of the form $\Squ{\xi} - \Squ{\ze}$. Pick some 
+  bundle $\eta$ such that $\ze \oplus \eta$ is trivial, i.e., it is isomorhic to $n\ep$. 
+  Then,
+  \[ \Squ{\xi} - \Squ{\ze} = \Squ{\xi} + \Squ{\eta} - \Squ{\ze} - \Squ{\eta} = 
+      \Squ{\xi \oplus \eta} - \Squ{n\ep} = \Squ{\xi \oplus \eta} - n. \] 
+\end{proof}
+
+\begin{prop}{equality-in-K-0}{d64ddf}
+  Two classes $\Squ{\xi}, \Squ{\ze}$ in $\Kthy[0][X]$ are equal if and only if
+  $\xi \oplus n\ep \isom \ze \oplus n\ep$ for some natural number $n$.
+\end{prop}
+\begin{proof}
+  If $\Squ{\xi} = \Squ{\ze}$, then $\xi \oplus \eta \isom \ze \oplus \eta$ for some bundle
+  $eta$ (by construction). The rest of the argument follows as in \tagref{prop:elements-of-K-0}.
+\end{proof}
+
+\section{bott-periodicity}{359137}{Bott Periodicity}
+
+The fundamental property of $K$-theory is \emph{Bott periodicity}. The only form we can
+state right now is
+\[ \Kthy[0][X \times {\Sph[2]}] \isom \Kthy[0][X] \otimes \Kthy[0][{\Sph[2]}], \]
+but, as we will eventually learn, is a deep fact about the structure of $\sU$, the unitary
+group.
+
+We begin by considering the \emph{projective bundle} associated to a vector bundle.
+\begin{defn}{projective-bundles}{e824c2}
+  Let $\xi = E \to B$ be a vector bundle. We can remove a copy of $B$ from $E$ by deleting
+  the zero element of each fiber. Then $\units{\C}$ acts on $E\sans B$ by fiberwise scaling.
+  define $\Pr[][][E]$ as the quotient of $E\sans B$ by this action, and moreover, let
+  $\Pr[][][\xi]$ be the bundle $\Pr[][][E] \to B$. This is the \emph{projectivization} of
+  $xi$. Note that this is merely a fibre bundle; the fibers are not vector spaces, but
+  projective spaces. 
+\end{defn}
+
+\begin{prop}{projectivizaton-up-to-line-bundle}{0e40ac}
+  For any vector bundle $\xi$ and line bundule $\ell$,
+  \[ \Pr[][][\xi \otimes \ell] \isom \Pr[][][\xi]. \]
+\end{prop}
+\begin{proof}
+  We apply \tagref{thm:vect-fnct-to-vec-bun-fnct} to reduce this to a question about 
+  projectivizations of vector spaces.
+  Let $\Pr[][][V]$ be the projectivization of the vector space $V$. Given a nonzero $w\in W$,
+  the assignment $v\mapsto v\otimes w$ gives a map $V \to V \otimes W$. If $\dim W = 1$,
+  this map is an (unnatural) isomorphism. If we projectivize, however, we no longer care
+  about the choice of sign of $w$, so $\Pr[][][V] \isom \Pr[][][V \otimes W]$.
 \end{proof}
 
 
