@@ -1,4 +1,5 @@
 % imports
+\usepackage{texor/texor}
 \usepackage{hyperref}
 \usepackage{marginnote}
 
@@ -50,8 +51,12 @@
 % reference a tagged item, e.g.
 % \tagref{thm:thom-isomorphism}
 \newcommand{\tagref}[1]{%
-  \hyperref[#1]{%
+  \@ifundefined{infty@tag@canary@#1}{%
+    {\tt <ref:#1>}%
+  }{%
+    \hyperref[#1]{%
      \tagsymbol{#1} \ref*{#1}%
+    }%
   }%
 }
 
@@ -141,6 +146,6 @@
 \infty@thm@new{rem}{Remark}
 \infty@thm@new{notation}{Notation}
 
-
+\def\infty@macros@defined{}
 
 \makeatother

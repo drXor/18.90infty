@@ -1,35 +1,20 @@
 \documentclass{report}
 
-\usepackage[vakil]{texor/texor}
-\usepackage{lipsum}
-
-\input{macros.tex}
+\input{header}
 
 \begin{document}
 
-\title{Test}
+\title{%
+  18.90$\infty$ \\
+    \large Algebaric topology from WWII to the present day%
+}
 
-%\maketitle
+\author{Sanath Develapurkar \& Miguel Young de la Sota}
 
-\chapter{foo}{123124}{Foo}
+\maketitle
 
-\section{bar}{612320}{Bar}
-\lipsum[1]
+% TODO: build tag-respecting table-of-contents
 
-\section{bar2}{213424}{Bar2}
-\lipsum[1]
-
-\begin{defn}[Baz]{test-1}{234212}
-  \lipsum[1]
-\end{defn}
-
-\lipsum[1]
-
-\begin{lem}[Baz2]{test-2}{567652}
-  \lipsum[1]
-\end{lem}
-
-Here's a ref to the first theorem: \tagref{defn:test-1}.
-Here's a ref to the first section: \tagref{sec:bar}.
+\input{chapters/k-theory}
 
 \end{document}

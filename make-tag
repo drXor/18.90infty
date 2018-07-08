@@ -1,0 +1,5 @@
+#!/usr/bin/env python
+
+import random, string
+
+print ''.join([random.choice(string.hexdigits).lower() for n in xrange(6)])
