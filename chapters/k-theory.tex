@@ -174,7 +174,14 @@ of Grothendieck to ``groupify'' it.
   \[ \Kthy[0][X] = K\Par{\cVect[X]}. \] 
   Moreover, the tensor product provides $\Kthy[0][X]$ with a multiplication, where the
   trivial line bundle $\ep = X \times \C$ is our one. This makes the Grothendieck group a ring.
+  In fact, this is a contravariant functor. Given a map of spaces $f: Y \to X$, we may perform
+  a change of base of all of the vector bundles to obtain a map $\Kthy[0][X] \to \Kthy[0][Y]$.
 \end{defn}
+
+\begin{exmp}{grothendieck-group-of-pt}{e0eaa1}
+  Because every vector bundle over the point is trivial, its Grothendieck group is just the
+  integers: $\Kthy[0][\pt] = \Z$.
+\end{exmp}
 
 While we have succeeded in making a ring out of vector bundles, this is merely a 
 slice of $K$-theory\footnote{Spoilers: it's a really big slice.}! Let's work through some
@@ -203,7 +210,7 @@ by the bundle $\xi$.
   $eta$ (by construction). The rest of the argument follows as in \tagref{prop:elements-of-K-0}.
 \end{proof}
 
-\section{bott-periodicity}{359137}{Bott Periodicity}
+\section{k-thy-periodicity-theorem}{359137}{A Periodicity Theorem}
 
 The fundamental property of $K$-theory is \emph{Bott periodicity}. The only form we can
 state right now is
@@ -234,5 +241,75 @@ We begin by considering the \emph{projective bundle} associated to a vector bund
   about the choice of sign of $w$, so $\Pr[][][V] \isom \Pr[][][V \otimes W]$.
 \end{proof}
 
+We will not prove the following theorem until much later, but we state it now
+and ponder its corollaries.
+\begin{thm}{main-thm-bott-periodicity}{cadc0b}
+  Let $\ell$ be a line bundle over $X$, and consider the projective bundle 
+  $\Pr[][][\ell \oplus \ep]$. Its Grothendieck group is completely determined as a 
+  $\Kthy[0][X]$-algebra, given as the following quotient of a polynomial
+  algebra:\footnote{Note that the generator of this algebra is $\Squ{\eta}$; it is
+  \emph{not} a formal power series ring, despite the double square brackets.} 
+  \[ \Kthy[0][{\Pr[][][\ell\oplus\ep]}] = 
+      \frac{\Kthy[0][X]\Squ{\Squ{\eta}}}
+        {\Par{\Par{\Squ{\eta}-1}\Par{\Squ{\eta}\Squ{\ell} - 1}}}. \]
+  Here, $\Squ{\eta}$ is another line bundle, which we will contruct later.
+\end{thm}
+
+This has two important corollaries. Consider the vector bundle $\ep \oplus \ep$ over
+$X$, i.e. $X \times \C[2] \to X$. If we projectivize, we wind up with the projective
+bundle $X \times \Cp[1]$. Recalling that the complex projective line is $\Sph[2]$, we
+have the following corrolaries:
+
+\begin{cor}{grothendieck-group-of-S2}{dbc762}
+  Setting $X = \pt$ and $\ell = \ep$ above, we find that
+  \[ \Kthy[0][{\Sph[2]}] = \frac{{\Z}\Squ{eta}}{\Par{\Par{\Squ{eta} - 1}^2}}. \]
+\end{cor}
+
+\begin{cor}{grothendieck-group-kunneth}{4f605f}
+  The following K\"unneth theorem holds, where the isomorphism is
+  the obvious multiplication map.
+  \[ \Kthy[0][X] \otimes \Kthy[0][{\Sph[2]}] \isom
+      \Kthy[0][{X \times \Sph[2]}]. \]
+\end{cor}
+ 
+%% TODO: prove big main theorem (gross)
+
+\section{k-thy-is-cohomology}{1d1dc4}{An Extraordinary Theory}
+
+We will now develop $K$-theory proper, using the periodicity theorems we've built up.
+We'll also show how $K$-theory is the next step towards modern algebaric topology, as
+the first example of an \emph{extraordinary cohomology theory}.
+
+Let $\cTop$ be our category of spaces, as usual, and let $\cTop_*$ be the pointed variant.
+Finally, let $\cTop^2$ be the category of pairs of spaces. Finally, given a space $X$, let
+$X^+$ be that space with a disjoint basepoint.
+
+The following construction is entirely analogous to the equivalent one for singular
+cohomology.
+\begin{defn}{reduced-grothendieck-group}{e99f3a}
+  Given a pointed space $X$ with basepoint $x$, let the \emph{reduced Grothendieck group}
+  be given as
+  \[ \rKthy[0][X] = \ker[{\Kthy[0][X] \to \Kthy[0][x]}], \]
+  i.e., as the kernel of the image of the inclusion of the basepoint. By definition, the
+  collapse map $X \to x$ induces a splitting
+  \[ \Kthy[0][X] = \rKthy[0][X] \oplus \rKthy[0][x]. \]
+  We define the \emph{relative Grothendieck group} of a pair as
+  \[ \Kthy[0][X, Y] = \rKthy[0][X/Y]. \]
+\end{defn}
+
+The usual facts, e.g. $\Kthy[0][X] = \rKthy[0][X^+]$, $\Kthy[0][X, \eset] = \Kthy[0][X]$,
+are obvious. We can now define $K$-theory in \emph{negative degree} using the reduced
+Grothendieck Group.
+\begin{defn}{negative-k-thy}{55a1bf}
+  Let $X$ be a pointed space. Then, define \emph{reduced $K$-theory}
+  \[ \rKthy[-n][X] = \rKthy[0][{\Susp[n]X}] \]
+  for $n > 0$. $K$-theory itself and its relative version are defined in
+  terms of this:
+  \[ \Kthy[-n][X] = \rKthy[-n][X^+], \quad
+       \Kthy[-n][X, Y] = \rKthy[-n][X/Y]. \]
+  These are all contravariant functors with the expected effect on maps, and
+  are all algebras over the relevant Grothendieck group, which takes the role of the
+  zeroth $K$-theory.
+\end{defn}
 
 \makeatletter\@ifundefined{infty@lock}{}{\end{document}}\makeatother
